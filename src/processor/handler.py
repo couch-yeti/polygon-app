@@ -29,20 +29,22 @@ def get_ticker_list() -> List[str]:
 
 def group_tickers(
     tickers: List[str], increment: int = 5
-) -> Tuple(List[str], List[str]):
+) -> Tuple[List[str], List[str]]:
     """return of five tickers and returns those in message format"""
     group_to_work = tickers[:increment]
     remaining_tickers = tickers[increment:]
     return group_to_work, remaining_tickers
 
 
-def work_ticker(ticker: str, today: str) -> None:
+def work_tickers(tickers: str, today: str) -> None:
+    """"""
+    today = datetime.today()
+    for ticker in tickers:
+        records = get_records_gte_paid_date(
+            ticker=ticker, paid_date=today.strftime("%d-%m-%Y")
+        )
 
-    records = get_records_gte_paid_date(
-        ticker=ticker,
-    )
-
-    handle_dividend_records(records=records)
+        handle_dividend_records(records=records)
 
 
 def parse_payload(event: Dict[str, str]) -> Dict[str, list]:
@@ -62,7 +64,6 @@ def lambda_handler(event, context=None):
         tickers = get_ticker_list()
         return sqs.send(message=json.dumps({"tickers": tickers}))
 
-    today = datetime.today()
     tickers_to_work, remaining_tickers = group_tickers(tickers)
     logger.info(f"Working the following tickers: {tickers_to_work}")
 
@@ -71,9 +72,7 @@ def lambda_handler(event, context=None):
     # 2. convert to dividend schema
     # 3. place in dynamo
     # 4. if end of tickets to work send text message to phone
+    work_tickers(tickers=tickers_to_work)
 
-    for ticker in tickers_to_work:
-        work_ticker(ticker=ticker, today=today.strftime("%d-%m-%Y"))
-    
     message = json.dumps({"tickers": remaining_tickers})
     sqs.send(message)
