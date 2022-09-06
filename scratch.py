@@ -92,7 +92,7 @@ def check_and_insert_record(
 ) -> None:
     """Function checks if the record exists in the DB if not it inserts it"""
     table = dynamo.table(table_name=table_name)
-    expression = Key("pk").eq(dividend["pk"]) & Key("sk").eq(dividend["sk"])
+    expression = Key("pk").eq(dividend["ticker"]) & Key("sk").eq(dividend["pay_date"])
     query = table.query(KeyConditionExpression=expression)["Items"]
     if not query:
         table.put_item(Item=dividend)
