@@ -1,5 +1,3 @@
-import queue
-from turtle import st
 from typing import Optional
 
 import aws_cdk as cdk
@@ -13,13 +11,22 @@ from aws_cdk import (
 from constructs import Construct
 
 
+class ScheduledEvent(Construct):
+    def __init__(self, scope: Construct, cid: str):
+        super().__init__(scope=scope, id=cid)
+
+
 class Bridge(Construct):
+    @property
+    def bus(self):
+        return self._bus
+
     def __init__(self, scope: Construct, cid: str, **kw):
         super().__init__(scope=scope, id=cid, **kw)
 
-        self.bus = aws_events.EventBus(scope=self, id="bus")
-    
-    def rule(self, )
+        self._bus = aws_events.EventBus(scope=self, id="bus")
+
+    # def rule(self, )
 
 
 class Queue(Construct):
@@ -30,7 +37,17 @@ class Queue(Construct):
         **kw,
     ):
         super().__init__(self, scope=scope, id=cid, **kw)
-        self.queue = aws_sqs.Queue(scope=self, id="queue")
+        self.dlq = self._dlq()
+        self.queue = aws_sqs.Queue(
+            scope=self,
+            id="queue",
+            dead_letter_queue=aws_sqs.DeadLetterQueue(
+                max_receive_count=5, queue=self.dlq
+            ),
+        )
+
+    def _dlq(self):
+        return aws_sqs.Queue(self, "dlq")
 
     def add_target(
         self,
@@ -75,7 +92,7 @@ class Lambda(Construct):
         )
 
 
-class Table(Construct):
+class Dynamo(Construct):
     def __init__(
         self,
         scope: Construct,
