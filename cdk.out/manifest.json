@@ -1,0 +1,130 @@
+{
+  "version": "21.0.0",
+  "artifacts": {
+    "polygon.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "polygon.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "polygon": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://unknown-account/unknown-region",
+      "properties": {
+        "templateFile": "polygon.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/3628e75cb73c7e54ad58f2fb7b08652092ee717a49c3311b163e19c119b1252f.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "polygon.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-lookup-role-${AWS::AccountId}-${AWS::Region}",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "polygon.assets"
+      ],
+      "metadata": {
+        "/polygon/table/table/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "table2F921907"
+          }
+        ],
+        "/polygon/processor/processor/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorServiceRole173A6931"
+          }
+        ],
+        "/polygon/processor/processor/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorServiceRoleDefaultPolicy0BBE5B2B"
+          }
+        ],
+        "/polygon/processor/processor/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorE94EEC25"
+          }
+        ],
+        "/polygon/processor/processor/SqsEventSource:polygonprocessorqueueCE81278F/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorSqsEventSourcepolygonprocessorqueueCE81278F95A47F2A"
+          }
+        ],
+        "/polygon/processor-queue/dlq/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorqueuedlq4FFBA964"
+          }
+        ],
+        "/polygon/processor-queue/queue/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorqueue23DDF4F5"
+          }
+        ],
+        "/polygon/processor-queue/queue/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "processorqueuePolicy281E5271"
+          }
+        ],
+        "/polygon/bus/bus/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "busB7E635F5"
+          }
+        ],
+        "/polygon/rule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ruleF2C1DCDC"
+          }
+        ],
+        "/polygon/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/polygon/CDKMetadata/Condition": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadataAvailable"
+          }
+        ],
+        "/polygon/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/polygon/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "polygon"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}

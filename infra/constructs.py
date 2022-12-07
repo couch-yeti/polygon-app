@@ -10,6 +10,8 @@ from aws_cdk import (
 )
 from constructs import Construct
 
+from infra.helpers import get_project_root
+
 
 class ScheduledEvent(Construct):
     def __init__(self, scope: Construct, cid: str):
@@ -26,8 +28,6 @@ class Bridge(Construct):
 
         self._bus = aws_events.EventBus(scope=self, id="bus")
 
-    # def rule(self, )
-
 
 class Queue(Construct):
     def __init__(
@@ -36,7 +36,7 @@ class Queue(Construct):
         cid: str,
         **kw,
     ):
-        super().__init__(self, scope=scope, id=cid, **kw)
+        super().__init__(scope=scope, id=cid, **kw)
         self.dlq = self._dlq()
         self.queue = aws_sqs.Queue(
             scope=self,
@@ -75,22 +75,13 @@ class Lambda(Construct):
             self,
             id=cid,
             handler="handler.lambda_handler",
-            code=self.code(path=self.path),
+            code=self._code(path=self.path),
+            runtime=aws_lambda.Runtime.PYTHON_3_8,
         )
 
     def _code(self, path: str) -> aws_lambda.Code:
-        return aws_lambda.Code.from_asset(
-            path=path,
-            bundling=cdk.BundlingOptions(
-                image=aws_lambda.Runtime.PYTHON_3_8.bundling_image,
-                command=[
-                    "bash",
-                    "-c",
-                    "pip install --no-cache -r requirements.txt -t /asset-output && cp -au . /asset-output",
-                ],
-            ),
-        )
-
+        _path = str((get_project_root() / path).resolve())
+        return aws_lambda.Code.from_asset(path=_path)
 
 class Dynamo(Construct):
     def __init__(
