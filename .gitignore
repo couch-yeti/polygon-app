@@ -154,3 +154,6 @@ cython_debug/
 
 # secret envs
 .env.secret
+
+# cdk out
+cdk.out/

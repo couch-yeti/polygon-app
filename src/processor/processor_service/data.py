@@ -12,8 +12,7 @@ class Dividend(Schema):
     @post_dump
     def dynamo_record(self, data, **kwargs):
         return {
-            "pk": data["ticker"],
-            "sk": data["pay_date"],
-            "text_sent": None,
+            "pk": data["pay_date"],
+            "sk": data["ticker"],
             **data,
         }

@@ -5,7 +5,6 @@ description = ""
 authors = ["Eric Barrow <eric.barrow@pnmac.com>"]
 
 packages = [
-    { include = "common", from = "src/core"},
     { include = "processor", from = "src"},
     { include = "processor_service", from = "src/processor"}
 ]

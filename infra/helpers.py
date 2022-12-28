@@ -32,6 +32,4 @@ def get_lambda_asset(path: str)->aws_lambda.Code:
                 ],
             ),
         )
-        if os.getenv("local", False)
-        else aws_lambda.Code.from_asset(path=str(_path))
     )

@@ -10,7 +10,7 @@ from aws_cdk import (
 )
 from constructs import Construct
 
-from infra.helpers import get_project_root
+from infra.helpers import get_lambda_asset
 
 
 class ScheduledEvent(Construct):
@@ -75,13 +75,12 @@ class Lambda(Construct):
             self,
             id=cid,
             handler="handler.lambda_handler",
-            code=self._code(path=self.path),
+            memory_size=528,
+            timeout=cdk.Duration.seconds(10),
+            code=get_lambda_asset(path=self.path),
             runtime=aws_lambda.Runtime.PYTHON_3_8,
         )
 
-    def _code(self, path: str) -> aws_lambda.Code:
-        _path = str((get_project_root() / path).resolve())
-        return aws_lambda.Code.from_asset(path=_path)
 
 class Dynamo(Construct):
     def __init__(

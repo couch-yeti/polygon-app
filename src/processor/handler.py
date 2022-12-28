@@ -37,7 +37,7 @@ def group_tickers(
 
 
 def work_tickers(tickers: str, today: str) -> None:
-    """"""
+    """Get dividend data from API and insert into dyanmo"""
     today = datetime.today()
     for ticker in tickers:
         records = get_records_gte_paid_date(
@@ -76,5 +76,8 @@ def lambda_handler(event, context=None):
     # 4. if end of tickets to work send text message to phone
     work_tickers(tickers=tickers_to_work)
 
-    message = json.dumps({"tickers": remaining_tickers})
-    sqs.send(message)
+    if remaining_tickers:
+        message = json.dumps({"tickers": remaining_tickers})
+        sqs.send(message)
+    else:
+
