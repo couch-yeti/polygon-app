@@ -277,7 +277,7 @@
                           "s3Bucket": {
                             "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
                           },
-                          "s3Key": "b40bbbb3444c7b4911ae12de292192c44bcacdd0335a2c1ad27f146486a4440e.zip"
+                          "s3Key": "42cb7f9ece9423d043466b9c6121cbb24c4274ab9f9a30bc6205700745082419.zip"
                         },
                         "role": {
                           "Fn::GetAtt": [
@@ -291,7 +291,9 @@
                           }
                         },
                         "handler": "handler.lambda_handler",
-                        "runtime": "python3.8"
+                        "memorySize": 528,
+                        "runtime": "python3.8",
+                        "timeout": 10
                       }
                     },
                     "constructInfo": {

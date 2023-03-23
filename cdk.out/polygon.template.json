@@ -163,7 +163,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b40bbbb3444c7b4911ae12de292192c44bcacdd0335a2c1ad27f146486a4440e.zip"
+     "S3Key": "42cb7f9ece9423d043466b9c6121cbb24c4274ab9f9a30bc6205700745082419.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -177,7 +177,9 @@
      }
     },
     "Handler": "handler.lambda_handler",
-    "Runtime": "python3.8"
+    "MemorySize": 528,
+    "Runtime": "python3.8",
+    "Timeout": 10
    },
    "DependsOn": [
     "processorServiceRoleDefaultPolicy0BBE5B2B",
@@ -185,8 +187,8 @@
    ],
    "Metadata": {
     "aws:cdk:path": "polygon/processor/processor/Resource",
-    "aws:asset:path": "asset.b40bbbb3444c7b4911ae12de292192c44bcacdd0335a2c1ad27f146486a4440e",
-    "aws:asset:is-bundled": false,
+    "aws:asset:path": "asset.42cb7f9ece9423d043466b9c6121cbb24c4274ab9f9a30bc6205700745082419",
+    "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
   },
@@ -315,7 +317,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VQwU7DMAz9Fu6uQVSTuNIJbkij231yEzNC22TMCaiq8u8k6VSQuOS9ZyvPz77HTY13N/QtldJ9NZgO570n1UMqHWc9WRqdTsUDdQPD9s0WEmGgsdOE83Owyhtnc2vlT19s/d6Fi+IXOp+NPeX2/2oEQyPOrVusC+7cYNSU5cIiSH0kEfaCjxmSxiaonn1DwiCfgvNr4FAsFlLeX6M/MgLnFOlLSdMEWZNl3oZrkoQxQstS4kIZnO5yuq6yNhLfOqtNXjvCbvLvzt7W+JBu+iHGVJdgvRkZ2wV/AAgIzRxvAQAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VQ0U7DMAz8lr27ZlDxAXSCN6TR8T65iRmhbTLmBFRV+XeSdCpISFHuzpYv59zhfY3bDX1LpXRfDabD+eBJ9ZBKx1lPlkanU/GVuoFh92YLiTDQ2GnC+SlY5Y2zubXyxy+2/uDCRfEznc/GnnL7fzWCoRHn1i3WBfduMGrKcmERpD6SCHvBhwxJYxNUz74hYZBPwfklcCgWCyn3r9EfGYFzijRS0jRB1mSZt+GaJGGM0LKUuFAeTv9yuq6yNhLfOatNXjvCfvLvzt7UeLtNZ/MhxlSXYL0ZGdsFfwDjy85icQEAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "polygon/CDKMetadata/Default"

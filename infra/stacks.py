@@ -42,6 +42,9 @@ class MainStack(cdk.Stack):
         self.queue.grant_send_messages(self.func)
         self.queue.grant_consume_messages(self.func)
 
+        self.func.add_environment(key="SQS_URL", value= self.queue.queue_url)
+        self.func.add_environment(key="TABLE", value=self.dynamo.table.table_name)
+
     def create_bus(self):
 
         self.bridge = Bridge(scope=self, cid="bus")

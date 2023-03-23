@@ -1,7 +1,6 @@
 from datetime import datetime
 import json
 import os
-import re
 from typing import List, Dict, Tuple
 
 from aws_lambda_powertools import Logger
@@ -14,7 +13,8 @@ from processor_service.capture import (
     handle_dividend_records,
 )
 
-load_dotenv()
+load_dotenv(".env.shared")
+load_dotenv(".env.secret")
 logger = Logger(serivce="processor", level=os.getenv("LEVEL", "WARN"))
 
 
@@ -30,7 +30,7 @@ def get_ticker_list() -> List[str]:
 def group_tickers(
     tickers: List[str], increment: int = 5
 ) -> Tuple[List[str], List[str]]:
-    """return of five tickers and returns those in message format"""
+    """return first five tickers and returns those in message format"""
     group_to_work = tickers[:increment]
     remaining_tickers = tickers[increment:]
     return group_to_work, remaining_tickers
