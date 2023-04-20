@@ -7,7 +7,7 @@ from aws_lambda_powertools import Logger
 from boto3.dynamodb.conditions import Key
 from dotenv import load_dotenv
 
-from common.aws import dynamo, sqs
+from common.aws import dynamo, sqs, sns
 from processor_service.capture import (
     get_records_gte_paid_date,
     handle_dividend_records,
@@ -80,4 +80,5 @@ def lambda_handler(event, context=None):
         message = json.dumps({"tickers": remaining_tickers})
         sqs.send(message)
     else:
+        sns.send_text_message("test")
 
